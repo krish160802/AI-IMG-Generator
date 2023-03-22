@@ -14,7 +14,7 @@ function App() {
 
   const generateImage = async () => {
      
-    const res =await fetch("http://localhost:5000/generateimage",{
+    const res =await fetch("/generateimage",{
          method:"POST",
          headers:{
           "Content-Type":"application/json"

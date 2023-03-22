@@ -10,14 +10,7 @@ require('dotenv').config()
 const path=require('path')
 const port=process.env.PORT || 5000;
 
-if(process.env.NODE_ENV==='production'){
-    app.use(express.static(path.join(__dirname,'client','build')));
-// console.log(path.join(__dirname,'client','build'))
-    app.get('/*',(req,res)=>{
-        // res.send("lo")
-         res.sendFile(path.join(__dirname,'client','build','index.html'))
-    })
-}
+
 
 
 
@@ -54,6 +47,16 @@ app.post("/generateimage",async(req,res)=>{
         }
    
 })
+
+
+if(process.env.NODE_ENV==='production'){
+    app.use(express.static(path.join(__dirname,'client','build')));
+// console.log(path.join(__dirname,'client','build'))
+    app.get('/*',(req,res)=>{
+        // res.send("lo")
+         res.sendFile(path.join(__dirname,'client','build','index.html'))
+    })    
+}
 
 // app.post("/generateimage",(req,res)=>{
 //     const generateImage = async () => {
