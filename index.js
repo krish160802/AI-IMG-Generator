@@ -5,10 +5,21 @@ const cors=require('cors');
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(cors());
 app.use(bodyParser.json());
-// app.use(express.json());
+app.use(express.json());
 require('dotenv').config() 
 const path=require('path')
 const port=process.env.PORT || 5000;
+
+if(process.env.NODE_ENV==='production'){
+    app.use(express.static(path.join(__dirname,'client','build')));
+// console.log(path.join(__dirname,'client','build'))
+    app.get('/*',(req,res)=>{
+        // res.send("lo")
+         res.sendFile(path.join(__dirname,'client','build','index.html'))
+    })
+}
+
+
 
 const { Configuration, OpenAIApi } = require("openai");
 
@@ -18,6 +29,8 @@ const configuration = new Configuration({
   
 const openai = new OpenAIApi(configuration);
 
+
+    
 app.post("/generateimage",async(req,res)=>{
 
     try{
@@ -59,14 +72,9 @@ app.post("/generateimage",async(req,res)=>{
 //     generateImage();
 // })
 
-if(process.env.NODE_ENV==='production'){
-    
-}
 
-app.use(express.static(path.join(__dirname,'client','build')));
-    app.get('/*',(req,res)=>{
-        res.sendFile(path.join(__dirname,'client','build','index.html'))
-    })
+
+
 
 app.listen(port,()=>{
     console.log("Server running");
