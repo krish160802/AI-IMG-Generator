@@ -5,7 +5,6 @@ import { InputBoxA } from "./InputBox";
 import { OutputBox } from "./OutputBox";
 
 
-
 function App() {
 
   const [userPrompt, setUserPrompt] = useState("");
